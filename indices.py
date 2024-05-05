@@ -1,29 +1,28 @@
-#import ee
+import ee
 
-def calculateIndex(image,index):
-    ndwi = image.normalizedDifference(["B3", "B8"])
+def calculateIndex(image,index,roi):
+    osm_water = ee.ImageCollection("projects/sat-io/open-datasets/OSM_waterLayer").median().clip(roi)
+    mask = osm_water.select('b1').eq(2).Or(osm_water.select('b1').eq(3))
+    watermask = osm_water.updateMask(mask)
     if index.upper() == "NDWI":
+        ndwi = image.normalizedDifference(["B3", "B8"])
         result = ndwi
     elif index.upper() == "NDTI":
-        watermask = ndwi.gt(0)
         ndti = image.normalizedDifference(["B4", "B3"])
         result = ndti.updateMask(watermask)
     elif index.upper() == "TURBIDITY":
-        watermask = ndwi.gt(0)
         turbidity = image.expression(
         '8.93 * (GREEN/AERO) - 6.39', {
         'AERO': image.select('B1'),
         'GREEN': image.select('B3')})
         result = turbidity.updateMask(watermask)
     elif index.upper() == "CHLA":
-        watermask = ndwi.gt(0)
         turbidity = image.expression(
         '4.26 * pow(1.0*(GREEN/AERO), 3.94)', {
         'AERO': image.select('B1'),
         'GREEN': image.select('B3')})
         result = turbidity.updateMask(watermask)
     elif index.upper() == "CYA":
-        watermask = ndwi.gt(0)
         turbidity = image.expression(
         '115530.31 * pow(GREEN * (RED / BLUE), 2.38)', {
         'BLUE': image.select('B2'),
@@ -31,14 +30,12 @@ def calculateIndex(image,index):
         'RED': image.select('B4')})
         result = turbidity.updateMask(watermask)
     elif index.upper() == "CDOM":
-        watermask = ndwi.gt(0)
         turbidity = image.expression(
         '537 * exp(-2.93*GREEN/RED)', {
         'GREEN': image.select('B3'),
         'RED': image.select('B4')})
         result = turbidity.updateMask(watermask)
     elif index.upper() == "DOC":
-        watermask = ndwi.gt(0)
         turbidity = image.expression(
         '432 * exp(-2.24*GREEN/RED)', {
         'GREEN': image.select('B3'),

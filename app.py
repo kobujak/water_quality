@@ -57,12 +57,12 @@ image = dataset.filterBounds(roi).filterDate("2020-04-01", "2020-08-01").filter(
 image = image.clip(roi).unmask()
 
 m.addLayer(image, visualizationParams("RGB"), "RGB_img")
-m.addLayer(calculateIndex(image,"NDTI"),visualizationParams("NDTI"), "NDTI" )
-m.addLayer(calculateIndex(image,"TURBIDITY"),visualizationParams("TURBIDITY"), "TURBIDITY" )
-m.addLayer(calculateIndex(image,"CHLA"),visualizationParams("CHLA"), "CHLA" )
-m.addLayer(calculateIndex(image,"CYA"),visualizationParams("CYA"), "CYA" )
-m.addLayer(calculateIndex(image,"CDOM"),visualizationParams("CDOM"), "CDOM" )
-m.addLayer(calculateIndex(image,"DOC"),visualizationParams("DOC"), "DOC" )
+m.addLayer(calculateIndex(image,"NDTI",roi),visualizationParams("NDTI"), "NDTI" )
+m.addLayer(calculateIndex(image,"TURBIDITY",roi),visualizationParams("TURBIDITY"), "TURBIDITY" )
+m.addLayer(calculateIndex(image,"CHLA",roi),visualizationParams("CHLA"), "CHLA" )
+m.addLayer(calculateIndex(image,"CYA",roi),visualizationParams("CYA"), "CYA" )
+m.addLayer(calculateIndex(image,"CDOM",roi),visualizationParams("CDOM"), "CDOM" )
+m.addLayer(calculateIndex(image,"DOC",roi),visualizationParams("DOC"), "DOC" )
 
 m.to_streamlit(height=1000)
 

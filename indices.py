@@ -6,7 +6,7 @@ def calculateIndex(image,index,roi):
     watermask = osm_water.updateMask(mask)
     if index.upper() == "NDWI":
         ndwi = image.normalizedDifference(["B3", "B8"])
-        result = ndwi
+        result = ndwi.updateMask(watermask)
     elif index.upper() == "NDTI":
         ndti = image.normalizedDifference(["B4", "B3"])
         result = ndti.updateMask(watermask)

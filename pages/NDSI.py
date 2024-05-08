@@ -12,6 +12,12 @@ ee.Initialize()
 #page config
 
 st.set_page_config(layout="wide")
-st.header('NDWI')
+st.header('NDSI')
 
-st.write("placeholder")
+roi = getRoi()
+
+m = geemap.Map()
+m.centerObject(roi)
+
+m.addLayer(calculateIndex(getImage(roi),"NDSI",roi),visualizationParams("NDSI"), "NDSI" )
+m.to_streamlit(height=1000)

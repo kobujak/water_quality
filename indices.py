@@ -10,6 +10,9 @@ def calculateIndex(image,index,roi):
     elif index.upper() == "NDTI":
         ndti = image.normalizedDifference(["B4", "B3"])
         result = ndti.updateMask(watermask)
+    elif index.upper() == "NDSI":
+        ndsi = image.normalizedDifference(["B11", "B12"])
+        result = ndsi.updateMask(watermask)
     elif index.upper() == "TURBIDITY":
         turbidity = image.expression(
         '8.93 * (GREEN/AERO) - 6.39', {
@@ -54,7 +57,9 @@ def visualizationParams(index):
     elif index.upper() == "NDWI":
         vis = {'min': -1, 'max': 1, 'palette': ['00FFFF', '0000FF']}       
     elif index.upper() == "NDTI":
-         vis = {'min': -1, 'max': 0, 'palette': ['f22f11', 'ebd510','0af50a']}
+         vis = {'min': -1, 'max': 0, 'palette': ['0af50a', 'ebd510','f22f11']}
+    elif index.upper() == "NDSI":
+         vis = {'min': -1, 'max': 1, 'palette': ['f22f11', 'ebd510','0af50a']}    
     elif index.upper() == "TURBIDITY":
          vis = {'min': 0, 'max': 20, 'palette': ['f22f11', 'ebd510','0af50a']}
     elif index.upper() == "CHLA":

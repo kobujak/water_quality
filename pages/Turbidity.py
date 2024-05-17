@@ -4,10 +4,11 @@ import ee
 from indices import calculateIndex,visualizationParams
 from images import getImage
 from roi import getRoi
+from datapoints import getDatapoints
 
 #ee.Authenticate(authorization_code="")
 
-ee.Initialize()
+#ee.Initialize()
 
 #page config
 
@@ -20,4 +21,8 @@ m = geemap.Map(basemap ='CartoDB.DarkMatter')
 m.centerObject(roi)
 
 m.addLayer(calculateIndex(getImage(roi),"TURBIDITY",roi),visualizationParams("TURBIDITY"), "Turbidity" )
+
+points = getDatapoints()
+m.add_points_from_xy(points, x="longitude", y="latitude")
+
 m.to_streamlit(height=1000)

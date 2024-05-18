@@ -1,7 +1,9 @@
 import pandas as pd
 import requests
 import streamlit as st
+import ee
 
+@st.cache_data()
 def getDatapoints(): #TODO dates parameters
     
     headers = requests.utils.default_headers()
@@ -28,4 +30,28 @@ def getDatapoints(): #TODO dates parameters
             df.rename(columns={'determinand.label': 'label', 'determinand.unit.label': 'unit', 'sample.samplingPoint.lat': 'latitude', 'sample.samplingPoint.long': 'longitude'}, inplace=True)
             data.append(df)
     return pd.concat(data)
-            
+
+def pointRasterValues(in_df,img):
+    
+
+
+    features = []
+    for index,row in in_df.iterrows():
+        geometry = ee.Geometry.Point([row['longitude'], row['latitude']])
+        properties = dict(row)
+        feature = ee.Feature(geometry, properties)
+        features.append(feature)
+    collection = ee.FeatureCollection(features)
+
+    results = img.sampleRegions(
+        collection = collection,
+        scale = 10
+    )
+
+    first = results.first().getInfo()
+    columns = list(first['properties'].keys())
+    points_list = results.reduceColumns(ee.Reducer.toList(len(columns)), columns).values().get(0)
+    new_rows = points_list.getInfo()
+    new_df = pd.DataFrame(new_rows,columns = columns)
+    new_df.rename(columns={'constant': 'RasterValue'}, inplace=True)
+    return new_df

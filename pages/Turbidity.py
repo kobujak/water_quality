@@ -1,10 +1,11 @@
 import geemap.foliumap as geemap
 import streamlit as st
 import ee
-from indices import calculateIndex,visualizationParams
+from datetime import datetime
+from indices import calculateIndex, visualizationParams
 from images import getImage
 from roi import getRoi
-from datapoints import getDatapoints
+from datapoints import getDatapoints, pointRasterValues
 
 #ee.Authenticate(authorization_code="")
 
@@ -20,9 +21,11 @@ roi = getRoi()
 m = geemap.Map(basemap ='CartoDB.DarkMatter')
 m.centerObject(roi)
 
-m.addLayer(calculateIndex(getImage(roi),"TURBIDITY",roi),visualizationParams("TURBIDITY"), "Turbidity" )
+turb = calculateIndex(getImage(roi),"TURBIDITY",roi)
+m.addLayer(turb,visualizationParams("TURBIDITY"), "Turbidity" )
 
-points = getDatapoints()
+
+points = pointRasterValues(getDatapoints(),turb)
 m.add_points_from_xy(points, x="longitude", y="latitude")
 
 m.to_streamlit(height=1000)

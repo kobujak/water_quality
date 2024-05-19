@@ -3,8 +3,8 @@ import requests
 import streamlit as st
 import ee
 
-@st.cache_data()
-def getDatapoints(): #TODO dates parameters
+#@st.cache_data()
+def getDatapoints(start,end): 
     
     headers = requests.utils.default_headers()
 
@@ -14,9 +14,12 @@ def getDatapoints(): #TODO dates parameters
     }
     )
 
+    start = start.strftime('%Y-%m-%d')
+    end = end.strftime('%Y-%m-%d')
+
     baseurl = 'http://environment.data.gov.uk/water-quality' 
-    pathHS = baseurl + '/data/measurement?determinand=6396&_limit=100&startDate=2023-01-01&endDate=2023-12-31&subArea=10-39-K&_view=full'
-    pathCL = baseurl + '/data/measurement?determinand=6396&_limit=100&startDate=2023-01-01&endDate=2023-12-31&area=4-11&_view=full'
+    pathHS = baseurl + '/data/measurement?determinand=6396&_limit=100&startDate='+start+'&endDate='+end+'&subArea=10-39-K&_view=full'
+    pathCL = baseurl + '/data/measurement?determinand=6396&_limit=100&startDate='+start+'&endDate='+end+'&area=4-11&_view=full'
     urls = [pathHS,pathCL]
 
     data = []
@@ -26,8 +29,8 @@ def getDatapoints(): #TODO dates parameters
             response_json = response.json()
             response_json = pd.json_normalize(response_json['items'])
             df = pd.DataFrame(response_json)
-            df = df[['determinand.label','result','determinand.unit.label','sample.samplingPoint.lat','sample.samplingPoint.long']]
-            df.rename(columns={'determinand.label': 'label', 'determinand.unit.label': 'unit', 'sample.samplingPoint.lat': 'latitude', 'sample.samplingPoint.long': 'longitude'}, inplace=True)
+            df = df[['determinand.label','result','determinand.unit.label','sample.samplingPoint.lat','sample.samplingPoint.long','sample.sampleDateTime']]
+            df.rename(columns={'determinand.label': 'label', 'determinand.unit.label': 'unit', 'sample.samplingPoint.lat': 'latitude', 'sample.samplingPoint.long': 'longitude','sample.sampleDateTime':'SampleDate'}, inplace=True)
             data.append(df)
     return pd.concat(data)
 

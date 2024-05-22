@@ -24,10 +24,13 @@ def mask_s2_clouds(image):
 
   return image.updateMask(mask).divide(10000)
 
-def getImage(roi):
-  # parameters for dates should be added
+def getImage(start,end, roi):
+
+  start = start.strftime('%Y-%m-%d')
+  end = end.strftime('%Y-%m-%d')
+  
   dataset = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
-  image = dataset.filterBounds(roi).filterDate("2020-04-01", "2020-08-01").filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20)).sort('CLOUDY_PIXEL_PERCENTAGE',False).map(mask_s2_clouds).mosaic()
+  image = dataset.filterBounds(roi).filterDate(start, end).filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20)).sort('CLOUDY_PIXEL_PERCENTAGE',False).map(mask_s2_clouds).mosaic()
   image = image.clip(roi).unmask()
 
   return image

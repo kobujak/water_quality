@@ -61,7 +61,7 @@ def visualizationParams(index):
     elif index.upper() == "NDSI":
          vis = {'min': -1, 'max': 1, 'palette': ['f22f11', 'ebd510','0af50a']}    
     elif index.upper() == "TURBIDITY":
-         vis = {'min': 0, 'max': 20, 'palette': ['f22f11', 'ebd510','0af50a']}
+         vis = {'min': 0, 'max': 20, 'palette': ['496FF2','82D35F','FEFD05', 'FD0004','8E7C26','D97CF5']}
     elif index.upper() == "CHLA":
          vis = {'min': 0, 'max': 50, 'palette': ['f22f11', 'ebd510','0af50a']}
     elif index.upper() == "CYA":

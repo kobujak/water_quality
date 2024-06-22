@@ -1,36 +1,48 @@
 import ee
+from datetime import  datetime, timedelta
 
-def mask_s2_clouds(image):
-  """Masks clouds in a Sentinel-2 image using the QA band.
+def mask_clouds(img):
+  qa_band = 'cs_cdf'
+  clear_treshold = 0.65
+  return img.updateMask(img.select(qa_band).gte(clear_treshold))
 
-  Args:
-      image (ee.Image): A Sentinel-2 image.
 
-  Returns:
-      ee.Image: A cloud-masked Sentinel-2 image.
-  """
-  qa = image.select('QA60')
-
-  # Bits 10 and 11 are clouds and cirrus, respectively.
-  cloud_bit_mask = 1 << 10
-  cirrus_bit_mask = 1 << 11
-
-  # Both flags should be set to zero, indicating clear conditions.
-  mask = (
-      qa.bitwiseAnd(cloud_bit_mask)
-      .eq(0)
-      .And(qa.bitwiseAnd(cirrus_bit_mask).eq(0))
-  )
-
-  return image.updateMask(mask).divide(10000)
-
-def getImage(start,end, roi):
+def getImage(start,end, roi, sr=True):
 
   start = start.strftime('%Y-%m-%d')
   end = end.strftime('%Y-%m-%d')
-  
-  dataset = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
-  image = dataset.filterBounds(roi).filterDate(start, end).filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20)).sort('CLOUDY_PIXEL_PERCENTAGE',False).map(mask_s2_clouds).mosaic()
-  image = image.clip(roi).unmask()
+  if sr == True:
+    s2 = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+  else:
+    s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED")
+
+  csPlus = ee.ImageCollection('GOOGLE/CLOUD_SCORE_PLUS/V1/S2_HARMONIZED')
+
+  qa_band = 'cs_cdf'
+
+  image = s2.filterBounds(roi).filterDate(start, end).linkCollection(csPlus, [qa_band]).map(mask_clouds).median()
+  image = image.clip(roi)
 
   return image
+
+def getSingleImage(date):
+
+  feature = ee.FeatureCollection("projects/ee-konradbujak09/assets/lakes_analysis", {})
+  roi = feature.geometry()
+
+  start_date = datetime.strptime(date, '%Y-%m-%d') - timedelta(days=4)
+  end_date = datetime.strptime(date, '%Y-%m-%d') + timedelta(days=4)
+  start_date = start_date.strftime('%Y-%m-%d')
+  end_date = end_date.strftime('%Y-%m-%d')
+
+  csPlus = ee.ImageCollection('GOOGLE/CLOUD_SCORE_PLUS/V1/S2_HARMONIZED')
+
+  qa_band = 'cs_cdf'
+
+  s2 = ee.ImageCollection('COPERNICUS/S2_HARMONIZED') \
+    .filterBounds(roi). \
+    filterDate(start_date, end_date) \
+    .linkCollection(csPlus, [qa_band]).map(mask_clouds)\
+    .sort('CLOUDY_PIXEL_PERCENTAGE').first()
+  img = s2.clip(roi)
+  return img.divide(10000)

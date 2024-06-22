@@ -4,7 +4,7 @@ import streamlit as st
 import ee
 
 #@st.cache_data()
-def getDatapoints(start,end): 
+def getDatapoints(start,end,det): 
     
     headers = requests.utils.default_headers()
 
@@ -18,8 +18,8 @@ def getDatapoints(start,end):
     end = end.strftime('%Y-%m-%d')
 
     baseurl = 'http://environment.data.gov.uk/water-quality' 
-    pathHS = baseurl + '/data/measurement?determinand=6396&_limit=100&startDate='+start+'&endDate='+end+'&subArea=10-39-K&_view=full'
-    pathCL = baseurl + '/data/measurement?determinand=6396&_limit=100&startDate='+start+'&endDate='+end+'&area=4-11&_view=full'
+    pathHS = baseurl + '/data/measurement?determinand='+det+'&_limit=100&startDate='+start+'&endDate='+end+'&subArea=10-39-K&_view=full'
+    pathCL = baseurl + '/data/measurement?determinand='+det+'&_limit=100&startDate='+start+'&endDate='+end+'&subArea=4-11-B&_view=full'
     urls = [pathHS,pathCL]
 
     data = []
@@ -36,25 +36,46 @@ def getDatapoints(start,end):
 
 def pointRasterValues(in_df,img):
     
-
+    
+    in_df = in_df.sort_values(by=['SampleDate'])
+    in_df.insert(0,'MY_ID',range(0,len(in_df)))
 
     features = []
+    rasterValue = []
+    Indexes = []
     for index,row in in_df.iterrows():
-        geometry = ee.Geometry.Point([row['longitude'], row['latitude']])
+        point = ee.Geometry.Point([row['longitude'], row['latitude']])
+        buffer = point.buffer(distance = 10)
         properties = dict(row)
-        feature = ee.Feature(geometry, properties)
+        feature = ee.Feature(buffer, properties)
+        features.append(feature)
+        collection = ee.FeatureCollection(features)
+
+        stats = img.reduceRegion(
+        reducer=ee.Reducer.mean(),
+        geometry=collection,
+        scale=10,  # meters
+        )
+        rasterValue.append(stats.get('constant').getInfo())
+        Indexes.append(row['MY_ID'])
+
+
+
+
+    d = {'MY_ID': Indexes, 'constant': rasterValue}
+    values = pd.DataFrame(d)
+    result = pd.merge(in_df, values.set_index('MY_ID'), left_on= 'MY_ID',
+                   right_index= True, 
+                   how = 'left')
+    result = result.drop('MY_ID', axis=1)
+    return result
+
+def createBuffer(in_df):
+    features = []
+    for index,row in in_df.iterrows():
+        point = ee.Geometry.Point([row['longitude'], row['latitude']])
+        buffer = point.buffer(distance = 10)
+        feature = ee.Feature(buffer)
         features.append(feature)
     collection = ee.FeatureCollection(features)
-
-    results = img.sampleRegions(
-        collection = collection,
-        scale = 10
-    )
-
-    first = results.first().getInfo()
-    columns = list(first['properties'].keys())
-    points_list = results.reduceColumns(ee.Reducer.toList(len(columns)), columns).values().get(0)
-    new_rows = points_list.getInfo()
-    new_df = pd.DataFrame(new_rows,columns = columns)
-    new_df.rename(columns={'constant': 'RasterValue'}, inplace=True)
-    return new_df
+    return collection

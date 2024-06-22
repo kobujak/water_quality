@@ -11,38 +11,34 @@ from datapoints import getDatapoints, pointRasterValues
 #ee.Authenticate(authorization_code="")
 
 #ee.Initialize()
+if 'dates_tr' not in st.session_state:
+    st.session_state.dates_tr = (date(2023, 4, 1),date(2023, 4, 30))
 
 st.set_page_config(layout="wide")
 st.header('TURBIDITY')
 
 roi = getRoi()
 
-m = geemap.Map(basemap ='CartoDB.DarkMatter')
+m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
 
-if 'dates' not in st.session_state:
-    st.session_state.dates = (date(2023, 4, 1),date(2023, 4, 30))
-
-
-turb = calculateIndex(getImage(start = st.session_state.dates[0], end = st.session_state.dates[1],roi = roi),"TURBIDITY",roi)
+turb = calculateIndex(getImage(st.session_state.dates_tr[0],st.session_state.dates_tr[1],roi),"TURBIDITY")
 m.addLayer(turb,visualizationParams("TURBIDITY"), "Turbidity" )
 
-points = pointRasterValues(getDatapoints(start = st.session_state.dates[0], end = st.session_state.dates[1]),turb)
+points = pointRasterValues(getDatapoints(st.session_state.dates_tr[0], st.session_state.dates_tr[1],'6396'),turb)
 m.add_points_from_xy(points, x="longitude", y="latitude")
 
-m.to_streamlit(height=1000)
+m.to_streamlit(height=700)
 
-# def on_slider_click():
-#     st.session_state.dates
 
 with st.form("my_form"):
-   dates = st.slider(
+   dates_tr = st.slider(
         "Select date range",
         format = "YYYY-MM-DD ",
-        step = timedelta(days=10),
-        min_value = date(2018, 1, 1),
+        step = timedelta(days=6),
+        min_value = date(2018, 4, 1),
         max_value = date.today(),
-        key = 'dates'
+        key = 'dates_tr'
         )
    submitted = st.form_submit_button("Submit")
 

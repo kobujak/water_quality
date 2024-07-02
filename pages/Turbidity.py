@@ -5,12 +5,12 @@ from datetime import date,timedelta
 from indices import calculateIndex, visualizationParams
 from images import getImage
 from roi import getRoi
-from datapoints import getDatapoints, pointRasterValues
+
 
 
 #ee.Authenticate(authorization_code="")
 
-#ee.Initialize()
+ee.Initialize()
 if 'dates_tr' not in st.session_state:
     st.session_state.dates_tr = (date(2023, 4, 1),date(2023, 4, 30))
 
@@ -25,8 +25,6 @@ m.centerObject(roi)
 turb = calculateIndex(getImage(st.session_state.dates_tr[0],st.session_state.dates_tr[1],roi),"TURBIDITY")
 m.addLayer(turb,visualizationParams("TURBIDITY"), "Turbidity" )
 
-points = pointRasterValues(getDatapoints(st.session_state.dates_tr[0], st.session_state.dates_tr[1],'6396'),turb)
-m.add_points_from_xy(points, x="longitude", y="latitude")
 
 m.to_streamlit(height=700)
 

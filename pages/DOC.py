@@ -5,7 +5,7 @@ from datetime import date,timedelta
 from indices import calculateIndex,visualizationParams
 from images import getImage
 from roi import getRoi
-from datapoints import getDatapoints, pointRasterValues
+
 
 #ee.Authenticate(authorization_code="")
 
@@ -25,8 +25,6 @@ m.centerObject(roi)
 doc = calculateIndex(getImage(st.session_state.dates_doc[0],st.session_state.dates_doc[1],roi,sr=False),"DOC")
 m.addLayer(doc,visualizationParams("DOC"), "DOC" )
 
-points = pointRasterValues(getDatapoints(st.session_state.dates_doc[0],st.session_state.dates_doc[1],'0301'),doc)
-m.add_points_from_xy(points, x="longitude", y="latitude")
 
 m.to_streamlit(height=1000)
 

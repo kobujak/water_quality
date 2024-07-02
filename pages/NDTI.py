@@ -5,16 +5,20 @@ from datetime import date,timedelta
 from indices import calculateIndex, visualizationParams
 from images import getImage
 from roi import getRoi
+from modules.nav import Navbar
 
 #ee.Authenticate(authorization_code="")
 
+st.set_page_config(layout="wide") # Page config
+
+Navbar() # Sidebar pages
 ee.Initialize()
+st.title('NDTI')
+
+ee.Initialize()
+
 if 'dates_ndti' not in st.session_state:
     st.session_state.dates_ndti = (date(2023, 4, 1),date(2023, 4, 30))
-#page config
-
-st.set_page_config(layout="wide")
-st.header('NDTI')
 
 roi = getRoi()
 

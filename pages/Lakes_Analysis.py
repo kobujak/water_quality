@@ -5,10 +5,17 @@ import pandas as pd
 from indices import calculateIndex,visualizationParams
 from images import getSingleImage
 from datapoints import createBuffer
+from modules.nav import Navbar
+
+#ee.Authenticate(authorization_code="")
+
+st.set_page_config(layout="wide") # Page config
+
+Navbar() # Sidebar pages
 
 ee.Initialize()
 
-st.set_page_config(layout="wide")
+st.title('Lakes Analysis')
 
 tab1, tab2, tab3, tab4 = st.tabs(["Lakes", "Wast Water (NW-88021658)", "Bassenthwaite (NW-88010015)", "Ennerdale Water (NW-88005133)"])
 

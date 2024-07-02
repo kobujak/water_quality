@@ -5,27 +5,27 @@ from datetime import date,timedelta
 from indices import calculateIndex,visualizationParams
 from images import getImage
 from roi import getRoi
-
+from modules.nav import Navbar
 
 #ee.Authenticate(authorization_code="")
 
+st.set_page_config(layout="wide") # Page config
+
+Navbar() # Sidebar pages
 ee.Initialize()
+st.title('DOC')
+
+ee.Initialize()
+
 if 'dates_doc' not in st.session_state:
     st.session_state.dates_doc = (date(2023, 4, 1),date(2023, 4, 30))
-#page config
-
-st.set_page_config(layout="wide")
-st.header('DOC')
 
 roi = getRoi()
 
 m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
 
-doc = calculateIndex(getImage(st.session_state.dates_doc[0],st.session_state.dates_doc[1],roi,sr=False),"DOC")
-m.addLayer(doc,visualizationParams("DOC"), "DOC" )
-
-
+m.addLayer(calculateIndex(getImage(st.session_state.dates_doc[0],st.session_state.dates_doc[1],roi,sr=False),"DOC"),visualizationParams("DOC"), "DOC" )
 m.to_streamlit(height=1000)
 
 

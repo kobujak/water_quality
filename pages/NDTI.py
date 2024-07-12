@@ -10,7 +10,7 @@ from modules.language import initializeLanguage
 import gettext
 _ = gettext.gettext
 
-ee.Authenticate(authorization_code="",quiet=True)
+#ee.Authenticate(authorization_code="",quiet=True)
 initializeLanguage()
 try:
   localizator = gettext.translation('NDTI', localedir='locales', languages=[st.session_state.language])

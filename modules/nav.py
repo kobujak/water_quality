@@ -1,7 +1,6 @@
 import streamlit as st
 import gettext
 _ = gettext.gettext
-gettext.bind_textdomain_codeset('pl','UTF-8' )
 
 
 def Navbar():

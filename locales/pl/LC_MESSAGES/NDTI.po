@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-07-12 00:19+0200\n"
+"PO-Revision-Date: 2024-07-12 00:34+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: .\pages\NDTI.py:22 .\pages\NDTI.py:29
+msgid "NDTI_title"
+msgstr "Znormalizowany różnicowy wskaźnik mętności (NDTI)"
+
+#: .\pages\NDTI.py:30
+msgid "NDTI_description"
+msgstr "Znormalizowany różnicowy wskaźnik mętności służy do określenia przejrzystości wody. Wpływ na mętność zbiornika wodnego ma ilość materii organicznej, osady, a także zanieczyszczenia antropogeniczne. NDTI wykorzystuje własność przejrzystej wody, która odbija więcej promieniowania światła zielonego niż czerwonego. Wraz ze spadkiem przejrzystości wody w zbiorniku, odbicie promieniowania światła czerwonego wzrasta."
+
+#: .\pages\NDTI.py:41
+msgid "Select date range"
+msgstr "Wybierz zakres dat"
+
+#: .\pages\NDTI.py:48
+msgid "Submit"
+msgstr "Aktualizuj"

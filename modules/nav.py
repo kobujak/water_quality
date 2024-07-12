@@ -1,15 +1,25 @@
 import streamlit as st
+import gettext
+_ = gettext.gettext
+gettext.bind_textdomain_codeset('pl','UTF-8' )
 
 
 def Navbar():
-    with st.sidebar:
-        st.page_link('Home.py', label='Home', icon='🏠')
-        st.page_link('pages/NDWI.py', label='NDWI', icon='🔎')
-        st.page_link('pages/NDTI.py', label='NDTI', icon='🔎')
-        st.page_link('pages/NDSI.py', label='NDSI', icon='🔎')
-        st.page_link('pages/CDOM.py', label='CDOM', icon='🦠')
-        st.page_link('pages/CHLA.py', label='CHLA', icon='🦠')
-        st.page_link('pages/CYA.py', label='CYA', icon='🦠')
-        st.page_link('pages/DOC.py', label='DOC', icon='🦠')
-        st.page_link('pages/Turbidity.py', label='Turbidity', icon='💧')
-        st.page_link('pages/Lakes_Analysis.py', label='Lakes Analysis', icon='📈')
+    _ = gettext.gettext
+    try:
+        localizator = gettext.translation('nav', localedir='locales', languages=[st.session_state.language])
+        localizator.install()
+        _ = localizator.gettext 
+    except:
+        pass
+    st.sidebar.selectbox(_('Select language'), ['en', 'pl'],key = 'language')
+    st.sidebar.page_link('Home.py', label=_('Home'), icon='🏠')
+    st.sidebar.page_link('pages/NDWI.py', label=_('NDWI'), icon='🔎')
+    st.sidebar.page_link('pages/NDTI.py', label=_('NDTI'), icon='🔎')
+    st.sidebar.page_link('pages/NDVI.py', label=_('NDVI'), icon='🔎')
+    st.sidebar.page_link('pages/CDOM.py', label=_('CDOM'), icon='🦠')
+    st.sidebar.page_link('pages/CHLA.py', label=_('CHLA'), icon='🦠')
+    st.sidebar.page_link('pages/CYA.py', label=_('CYA'), icon='🦠')
+    st.sidebar.page_link('pages/DOC.py', label=_('DOC'), icon='🦠')
+    st.sidebar.page_link('pages/Turbidity.py', label=_('Turbidity'), icon='💧')
+    st.sidebar.page_link('pages/Lakes_Analysis.py', label=_('Lakes Analysis'), icon='📈')

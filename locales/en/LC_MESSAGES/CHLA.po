@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-07-11 20:16+0200\n"
+"PO-Revision-Date: 2024-07-11 20:32+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: .\pages\CHLA.py:31
+msgid "CHLA_title"
+msgstr "Chlorophyll a"
+
+#: .\pages\CHLA.py:32
+msgid "CHLA_description"
+msgstr "Chlorophyll a is one of the primary indicators of surface water quality. It can be used to determine the state of phytoplankton, which includes algae and cyanobacteria. The indicator's value increases during the development of phytoplankton and decreases during its decay. High values of chlorophyll characterize eutrophic lakes. Remote sensing monitoring of the state of phytoplankton is possible due to the properties of chlorophyll, which alters the spectral properties of water in the green, red, and near-infrared radiation ranges."
+
+#: .\pages\CHLA.py:43
+msgid "Select date range"
+msgstr "Select a date range"
+
+#: .\pages\CHLA.py:50
+msgid "Submit"
+msgstr "Update"

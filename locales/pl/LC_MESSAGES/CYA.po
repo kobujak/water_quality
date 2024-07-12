@@ -1,0 +1,35 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-07-11 20:48+0200\n"
+"PO-Revision-Date: 2024-07-11 21:08+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: .\pages\CYA.py:15 .\pages\CYA.py:31
+msgid "CYA_title"
+msgstr "Sinice"
+
+#: .\pages\CYA.py:32
+msgid "CYA_description"
+msgstr ""
+"Zakwity sinic potrafią być niebezpieczne nie tylko dla ludzi, ale także dla ekosystemów wodnych, poprzez blokowanie światła słonecznego, nadmierne wyczerpywanie dostępnego tlenu w zbiorniku wodnym czy też poprzez toksyny sinicowe, które są zagrożeniem dla wszystkich organizmów żywych."
+"Sinice zanieczyszczają ujęcia wód co powoduje kryzys dostępności wody pitnej. Monitorowanie zakwitów sinic na dużych obszarach jest możliwe dzięki wykorzystaniu teledetkcji."
+
+#: .\pages\CYA.py:45
+msgid "Select date range"
+msgstr "Wybierz zakres dat"
+
+#: .\pages\CYA.py:52
+msgid "Submit"
+msgstr "Aktualizuj"

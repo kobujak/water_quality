@@ -1,0 +1,35 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-07-11 21:25+0200\n"
+"PO-Revision-Date: 2024-07-11 21:42+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: .\pages\DOC.py:22 .\pages\DOC.py:31
+msgid "DOC_title"
+msgstr "Rozpuszczony węgiel organiczny (DOC)"
+
+#: .\pages\DOC.py:32
+msgid "DOC_description"
+msgstr ""
+"Rozpuszczony węgiel organiczny jest wykorzystywane przez organizmy żyjące w zbiornikach wodnych jako źródło energii potrzebnej do rozwoju mikroorganizmów. Powstaje podczas rozkładu martwych organizmów żywych, a jego stężenie w zbiornikach wodnych wynosi zazwyczaj od 1 do 20 mg/L. "
+"Duże zawartości DOC, gromadzące się przy powierzchni tafli wody, wpływają na stopień w jakim światło słonecznego dociera do organizmów żyjących w zbiorniku wodnym."
+
+#: .\pages\DOC.py:45
+msgid "Select date range"
+msgstr "Wybierz zakres dat"
+
+#: .\pages\DOC.py:52
+msgid "Submit"
+msgstr "Aktualizuj"

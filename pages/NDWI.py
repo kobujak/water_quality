@@ -2,23 +2,34 @@ import geemap.foliumap as geemap
 import streamlit as st
 import ee
 from datetime import date,timedelta
-from indices import calculateIndex, visualizationParams
-from images import getImage
-from roi import getRoi
+from modules.indices import calculateIndex, visualizationParams
+from modules.images import getImage
+from modules.roi import getRoi
 from modules.nav import Navbar
+from modules.language import initializeLanguage
+import gettext
+_ = gettext.gettext
 
 #ee.Authenticate(authorization_code="")
+initializeLanguage()
+try:
+  localizator = gettext.translation('NDWI', localedir='locales', languages=[st.session_state.language])
+  localizator.install()
+  _ = localizator.gettext 
+except:
+    pass
 
-st.set_page_config(layout="wide") # Page config
+st.set_page_config(page_title=_('NDWI_title'),layout="wide") # Page config
 
-Navbar() # Sidebar pages
-ee.Initialize()
-st.title('NDWI')
 
 ee.Initialize()
 
 if 'dates_ndwi' not in st.session_state:
     st.session_state.dates_ndwi = (date(2023, 4, 1),date(2023, 4, 30))
+
+Navbar() # Sidebar pages
+st.title(_('NDWI_title'))
+st.subheader(_('NDWI_description'))
 
 roi = getRoi()
 
@@ -26,16 +37,16 @@ m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
 
 m.addLayer(calculateIndex(getImage(st.session_state.dates_ndwi[0],st.session_state.dates_ndwi[1],roi),"NDWI"),visualizationParams("NDWI"), "NDWI" )
-m.to_streamlit(height=1000)
+m.to_streamlit(height=900)
 
 
-with st.form("my_form"):
+with st.form("ndwi_form"):
    dates_ndwi = st.slider(
-        "Select date range",
+        _("Select date range"),
         format = "YYYY-MM-DD ",
         step = timedelta(days=6),
         min_value = date(2018, 4, 1),
         max_value = date.today(),
         key = 'dates_ndwi'
         )
-   submitted = st.form_submit_button("Submit")
+   submitted = st.form_submit_button(_("Submit"))

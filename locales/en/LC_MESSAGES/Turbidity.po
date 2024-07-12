@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2024-07-11 22:44+0200\n"
+"PO-Revision-Date: 2024-07-11 22:57+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: .\pages\Turbidity.py:22 .\pages\Turbidity.py:30
+msgid "Turb_title"
+msgstr "Turbidity"
+
+#: .\pages\Turbidity.py:31
+msgid "Turb_description"
+msgstr "Turbidity is a water parameter used to determine its clarity. The turbidity of a water body is influenced by the amount of organic matter, sediments, and anthropogenic pollutants. High turbidity in a water body limits the access of organisms to sunlight, which negatively affects the development of the ecosystem. Turbidity is expressed in NTU (nephelometric turbidity units)."
+
+#: .\pages\Turbidity.py:44
+msgid "Select date range"
+msgstr "Select a date range"
+
+#: .\pages\Turbidity.py:51
+msgid "Submit"
+msgstr "Update"

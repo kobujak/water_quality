@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2024-07-09 21:58+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: .\modules\nav.py:15
+msgid "Select language"
+msgstr "Select a language"
+
+#: .\modules\nav.py:16
+msgid "Home"
+msgstr "Home"
+
+#: .\modules\nav.py:17
+msgid "NDWI"
+msgstr "NDWI"
+
+#: .\modules\nav.py:18
+msgid "NDTI"
+msgstr "NDTI"
+
+#: .\modules\nav.py:19
+msgid "NDSI"
+msgstr "NDSI"
+
+#: .\modules\nav.py:20
+msgid "CDOM"
+msgstr "CDOM"
+
+#: .\modules\nav.py:21
+msgid "CHLA"
+msgstr "Chlorophyll a"
+
+#: .\modules\nav.py:22
+msgid "CYA"
+msgstr "Cyanobacteria"
+
+#: .\modules\nav.py:23
+msgid "DOC"
+msgstr "DOC"
+
+#: .\modules\nav.py:24
+msgid "Turbidity"
+msgstr "Turbidity"
+
+#: .\modules\nav.py:25
+msgid "Lakes Analysis"
+msgstr "Lake District Analysis"
+

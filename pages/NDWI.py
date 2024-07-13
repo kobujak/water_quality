@@ -22,7 +22,7 @@ except:
 st.set_page_config(page_title=_('NDWI_title'),layout="wide") # Page config
 
 
-ee.Initialize()
+ee.Initialize(project = st.secrets.project)
 
 if 'dates_ndwi' not in st.session_state:
     st.session_state.dates_ndwi = (date(2023, 4, 1),date(2023, 4, 30))

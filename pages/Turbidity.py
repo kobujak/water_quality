@@ -1,6 +1,5 @@
 import geemap.foliumap as geemap
 import streamlit as st
-import ee
 from datetime import date,timedelta
 from modules.indices import calculateIndex, visualizationParams
 from modules.images import getImage
@@ -10,7 +9,6 @@ from modules.language import initializeLanguage
 import gettext
 _ = gettext.gettext
 
-#ee.Authenticate(authorization_code="")
 initializeLanguage()
 try:
   localizator = gettext.translation('Turbidity', localedir='locales', languages=[st.session_state.language])
@@ -22,7 +20,6 @@ except:
 st.set_page_config(page_title=_('Turb_title'),layout="wide") # Page config
 
 
-ee.Initialize()
 
 if 'dates_tr' not in st.session_state:
     st.session_state.dates_tr = (date(2023, 4, 1),date(2023, 4, 30))

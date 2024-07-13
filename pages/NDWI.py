@@ -10,7 +10,7 @@ from modules.language import initializeLanguage
 import gettext
 _ = gettext.gettext
 
-ee.Authenticate()
+#ee.Authenticate()
 initializeLanguage()
 try:
   localizator = gettext.translation('NDWI', localedir='locales', languages=[st.session_state.language])
@@ -22,7 +22,7 @@ except:
 st.set_page_config(page_title=_('NDWI_title'),layout="wide") # Page config
 
 
-ee.Initialize(project="ee-konradbujak09")
+#ee.Initialize(project="ee-konradbujak09")
 
 if 'dates_ndwi' not in st.session_state:
     st.session_state.dates_ndwi = (date(2023, 4, 1),date(2023, 4, 30))

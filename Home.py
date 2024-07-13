@@ -5,9 +5,9 @@ from modules.authentication import authenticate
 import gettext
 _ = gettext.gettext
 
-authenticate()
 
 st.set_page_config(layout="wide") # Page config
+authenticate()
 initializeLanguage()
 
 Navbar() # Sidebar pages

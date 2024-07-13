@@ -1,8 +1,11 @@
 import streamlit as st
 from modules.nav import Navbar
 from modules.language import initializeLanguage
+from modules.authentication import authenticate
 import gettext
 _ = gettext.gettext
+
+authenticate()
 
 st.set_page_config(layout="wide") # Page config
 initializeLanguage()

@@ -10,7 +10,7 @@ from modules.language import initializeLanguage
 import gettext
 _ = gettext.gettext
 
-#ee.Authenticate(authorization_code="")
+
 
 initializeLanguage()
 try:
@@ -24,7 +24,7 @@ st.set_page_config(page_title=_('Lakes'),layout="wide") # Page config
 
 Navbar() # Sidebar pages
 
-ee.Initialize()
+
 
 st.title(_('Lakes'))
 st.subheader(_('Lakes_description'))

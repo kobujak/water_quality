@@ -23,7 +23,7 @@ def getImage(start,end, roi, sr=True):
   image = s2.filterBounds(roi).filterDate(start, end).linkCollection(csPlus, [qa_band]).map(mask_clouds).median()
   image = image.clip(roi)
 
-  return image
+  return image.divide(10000)
 
 def getSingleImage(date):
 

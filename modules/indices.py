@@ -26,7 +26,7 @@ def calculateIndex(image,index,roi_water = None):
         result = chla
     elif index.upper() == "CYA":
         cya = image.expression(
-        '115530.31 * pow(GREEN * (RED / BLUE), 2.38)', {
+        '115530.31 * pow(1.0*(GREEN * RED / BLUE), 2.38)', {
         'BLUE': image.select('B2'),
         'GREEN': image.select('B3'),
         'RED': image.select('B4')})
@@ -66,7 +66,7 @@ def visualizationParams(index):
     elif index.upper() == "NDWI":
         vis = {'min': -1, 'max': 1, 'palette': ['00FFFF', '0000FF']}       
     elif index.upper() == "NDTI":
-         vis = {'min': -1, 'max': 0, 'palette': ['0af50a', 'ebd510','f22f11']}
+         vis = {'min': -1, 'max': 1, 'palette': ['0af50a', 'ebd510','f22f11']}
     elif index.upper() == "NDVI":
          vis = {'min': -1, 'max': 1, 'palette': ['f22f11', 'ebd510','0af50a']}    
     elif index.upper() == "TURBIDITY":

@@ -10,7 +10,7 @@ def calculateIndex(image,index,roi_water = None):
         ndti = image.normalizedDifference(["B4", "B3"])
         result = ndti
     elif index.upper() == "NDVI":
-        ndvi = image.normalizedDifference(["B5", "B4"])
+        ndvi = image.normalizedDifference(["B8", "B4"])
         result = ndvi
     elif index.upper() == "TURBIDITY":
         turbidity = image.expression(

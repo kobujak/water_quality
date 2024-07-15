@@ -32,8 +32,9 @@ roi = getRoi()
 
 m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
-
-m.addLayer(calculateIndex(getImage(st.session_state.dates_tr[0],st.session_state.dates_tr[1],roi),"TURBIDITY"),visualizationParams("TURBIDITY"), "Turbidity" )
+vis = visualizationParams("TURBIDITY")
+m.addLayer(calculateIndex(getImage(st.session_state.dates_tr[0],st.session_state.dates_tr[1],roi),"TURBIDITY"),vis, "Turbidity" )
+m.add_colorbar(vis, label="Turbidity",background_color="#e5e5e5")
 m.to_streamlit(height=900)
 
 

@@ -32,8 +32,9 @@ roi = getRoi()
 
 m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
-
-m.addLayer(calculateIndex(getImage(st.session_state.dates_cdom[0],st.session_state.dates_cdom[1],roi,sr=False),"CDOM",),visualizationParams("CDOM"), "CDOM" )
+vis = visualizationParams("CDOM")
+m.addLayer(calculateIndex(getImage(st.session_state.dates_cdom[0],st.session_state.dates_cdom[1],roi,sr=False),"CDOM",),vis, "CDOM" )
+m.add_colorbar(vis, label="CDOM",background_color="#e5e5e5")
 m.to_streamlit(height=900)
 
 with st.form("cdom_form"):

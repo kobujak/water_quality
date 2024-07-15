@@ -30,8 +30,9 @@ st.subheader(_('NDTI_description'))
 
 m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
-
-m.addLayer(calculateIndex(getImage(st.session_state.dates_ndti[0],st.session_state.dates_ndti[1],roi),"NDTI"),visualizationParams("NDTI"), "NDTI" )
+vis = visualizationParams("NDTI")
+m.addLayer(calculateIndex(getImage(st.session_state.dates_ndti[0],st.session_state.dates_ndti[1],roi),"NDTI"),vis, "NDTI" )
+m.add_colorbar(vis, label="NDTI",background_color="#e5e5e5")
 m.to_streamlit(height=900)
 
 

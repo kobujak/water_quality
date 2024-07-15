@@ -32,8 +32,9 @@ roi = getRoi()
 
 m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
-
-m.addLayer(calculateIndex(getImage(st.session_state.dates_ndwi[0],st.session_state.dates_ndwi[1],roi),"NDWI"),visualizationParams("NDWI"), "NDWI" )
+vis = visualizationParams("NDWI")
+m.addLayer(calculateIndex(getImage(st.session_state.dates_ndwi[0],st.session_state.dates_ndwi[1],roi),"NDWI"),vis, "NDWI" )
+m.add_colorbar(vis, label="NDWI",background_color="#e5e5e5")
 m.to_streamlit(height=900)
 
 

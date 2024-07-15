@@ -58,8 +58,9 @@ with tab1:
     lakes = ee.FeatureCollection("projects/ee-konradbujak09/assets/lakes_analysis", {})
     roi = lakes.geometry()
     doc = calculateIndex(img,"DOC",roi)
-
-    m.addLayer(doc,visualizationParams("DOC"), "DOC" )
+    vis = visualizationParams("DOC")
+    m.addLayer(doc,vis, "DOC" )
+    m.add_colorbar(vis, label="DOC",background_color="#e5e5e5")
     m.addLayer(createBuffer(selected_df),
         {'color': 'red'},
         'Buffer used for calculation')

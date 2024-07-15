@@ -32,8 +32,9 @@ roi = getRoi()
 
 m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
-
-m.addLayer(calculateIndex(getImage(st.session_state.dates_doc[0],st.session_state.dates_doc[1],roi,sr=False),"DOC"),visualizationParams("DOC"), "DOC" )
+vis = visualizationParams("DOC")
+m.addLayer(calculateIndex(getImage(st.session_state.dates_doc[0],st.session_state.dates_doc[1],roi,sr=False),"DOC"),vis, "DOC" )
+m.add_colorbar(vis, label="DOC",background_color="#e5e5e5")
 m.to_streamlit(height=900)
 
 

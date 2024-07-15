@@ -33,8 +33,9 @@ roi = getRoi()
 
 m = geemap.Map(basemap ='HYBRID')
 m.centerObject(roi)
-
-m.addLayer(calculateIndex(getImage(st.session_state.dates_chla[0],st.session_state.dates_chla[1],roi),"CHLA"),visualizationParams("CHLA"), "CHLA" )
+vis = visualizationParams("CHLA")
+m.addLayer(calculateIndex(getImage(st.session_state.dates_chla[0],st.session_state.dates_chla[1],roi),"CHLA"),vis, "CHLA" )
+m.add_colorbar(vis, label="CHLA",background_color="#e5e5e5")
 m.to_streamlit(height=900)
 
 

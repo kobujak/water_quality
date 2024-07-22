@@ -54,19 +54,30 @@ with tab1:
     selected_df = df.loc[df['SampleDate'] == date_lake]
     m.add_points_from_xy(selected_df, x="longitude", y="latitude")
 
-    img = getSingleImage(st.session_state.date_lake)
+    img = getSingleImage(st.session_state.date_lake,sr=False)
+    img_sr = getSingleImage(st.session_state.date_lake)
     lakes = ee.FeatureCollection("projects/ee-konradbujak09/assets/lakes_analysis", {})
     roi = lakes.geometry()
+
     doc = calculateIndex(img,"DOC",roi)
+
     vis = visualizationParams("DOC")
+
+    m.addLayer(calculateIndex(img,"CDOM",roi),visualizationParams("CDOM"), "CDOM" )
+    m.addLayer(calculateIndex(img_sr,"TURBIDITY",roi),visualizationParams("TURBIDITY"), "TURBIDITY" )
+    m.addLayer(calculateIndex(img_sr,"NDVI",roi),visualizationParams("NDVI"), "NDVI" )
+    m.addLayer(calculateIndex(img_sr,"CHLA",roi),visualizationParams("CHLA"), "CHLA" )
     m.addLayer(doc,vis, "DOC" )
+
     m.add_colorbar(vis, label="DOC",background_color="#e5e5e5")
+
+
     m.addLayer(createBuffer(selected_df),
         {'color': 'red'},
         'Buffer used for calculation')
                 
     m.centerObject(doc)
-    m.to_streamlit(height=900)
+    m.to_streamlit(height=1200)
 
 
     st.header(_("Selected"))

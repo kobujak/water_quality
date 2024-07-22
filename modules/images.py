@@ -25,7 +25,7 @@ def getImage(start,end, roi, sr=True):
 
   return image.divide(10000)
 
-def getSingleImage(date):
+def getSingleImage(date, sr=True):
 
   feature = ee.FeatureCollection("projects/ee-konradbujak09/assets/lakes_analysis", {})
   roi = feature.geometry()
@@ -39,10 +39,15 @@ def getSingleImage(date):
 
   qa_band = 'cs_cdf'
 
-  s2 = ee.ImageCollection('COPERNICUS/S2_HARMONIZED') \
+  if sr == True:
+    s2 = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+  else:
+    s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED")
+
+  img = s2 \
     .filterBounds(roi). \
     filterDate(start_date, end_date) \
     .linkCollection(csPlus, [qa_band]).map(mask_clouds)\
     .sort('CLOUDY_PIXEL_PERCENTAGE').first()
-  img = s2.clip(roi)
+  img = img.clip(roi)
   return img.divide(10000)

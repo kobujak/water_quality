@@ -4,6 +4,7 @@ data.ipynb
 Untitled.ipynb
 lakes/
 media/
+test/
 .streamlit/secrets.toml
 # Byte-compiled / optimized / DLL files
 __pycache__/
